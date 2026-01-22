@@ -5,6 +5,12 @@ terraform {
       version = "~> 4.8.0"
     }
   }
+    backend "azurerm" {
+    resource_group_name  = "tf_backend"
+    storage_account_name = "tfstorage212026"
+    container_name       = "tfbackend"
+    key                  = "dev.terraform.tfstate"
+  }
   required_version = ">= 1.9.0"
 }
 
