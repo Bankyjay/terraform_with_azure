@@ -11,3 +11,6 @@ i.e
   export ARM_TENANT_ID=""
 
 To securely save the backend.tf file. create a new resource group, storage account and container  
+
+In passing varaiables: 
+The file terraform.tfvars takes precedence over variable.tf
