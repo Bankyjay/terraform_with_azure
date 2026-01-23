@@ -71,3 +71,17 @@ variable "vm_config" {
     version = "latest"
   }
 }
+
+#count sample variable
+variable "storage_account_name" {
+  type = list(string)
+  default = ["storageacctone232026", "storageaccttwo232026"]
+  
+}
+
+#for_each sample variable
+variable "storage_account_name2" {
+  type = set(string)
+  default = ["storageacctone01232026", "storageaccttwo01232026"]
+  
+}
