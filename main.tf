@@ -1,7 +1,20 @@
 resource "azurerm_resource_group" "example" {
   name     = "${var.environment}-resources"
+  #lifecycle {
+  #  create_before_destroy = false
+  #  prevent_destroy = false
+  #  ignore_changes = [ tags ]
+  #  replace_triggered_by = [ azurerm_resource_group.example.id ]
+  #  precondition {
+  #    condition = contains(var.allowed_locations, var.location)
+  #    error_message = "please enter a valid location"
+  #  }
+  #}
   #implementing lists data type
-  location = var.allowed_locations[2]
+  location = var.location
+  tags = {
+    environment = var.environment
+  }
 }
 
 resource "azurerm_storage_account" "example" {

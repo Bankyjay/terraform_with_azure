@@ -2,7 +2,7 @@
 variable "environment" {
   description = "The environment for the resources"
   type        = string
-  default = "dev"
+  default = "prod"
 }
 
 #number data type variable
@@ -10,6 +10,13 @@ variable "storage_disk" {
   description = "The size of the storage disk in GB"
   type        = number
   default     = 80
+  
+}
+
+variable "location" {
+  description = "The location for resource deployment"
+  type        = string
+  default     = "North Europe"
   
 }
 
@@ -75,7 +82,7 @@ variable "vm_config" {
 #count sample variable
 variable "storage_account_name" {
   type = list(string)
-  default = ["storageacctone232026", "storageaccttwo232026"]
+  default = ["storageacctone026", "storageacct32026"]
   
 }
 
