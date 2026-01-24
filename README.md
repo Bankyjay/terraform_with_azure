@@ -14,3 +14,10 @@ To securely save the backend.tf file. create a new resource group, storage accou
 
 In passing varaiables: 
 The file terraform.tfvars takes precedence over variable.tf
+
+Meta arguemnets:
+depends_on (explicit dependency Resource_B depends on Resource_A)
+count (list [1,2,3])
+for_each (counter)
+providers
+lifecycle
