@@ -10,5 +10,4 @@ output "storage_name" {
 
 output "storage_account_name2" {
   value = [for i in azurerm_storage_account.for_each_example: i.name]
-  
 }
