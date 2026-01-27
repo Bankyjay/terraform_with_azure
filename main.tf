@@ -1,46 +1,30 @@
-resource "azurerm_resource_group" "example" {
-  name     = "${var.environment}-resources"
-  #lifecycle {
-  #  create_before_destroy = false
-  #  prevent_destroy = false
-  #  ignore_changes = [ tags ]
-  #  replace_triggered_by = [ azurerm_resource_group.example.id ]
-  #  precondition {
-  #    condition = contains(var.allowed_locations, var.location)
-  #    error_message = "please enter a valid location"
-  #  }
-  #}
-  #implementing lists data type
-  location = var.location
-  tags = {
-    environment = var.environment
-  }
+resource "azurerm_resource_group" "rg" {
+  name     = "network-rg"
+  location = "westus2"
 }
 
-resource "azurerm_storage_account" "example" {
-  name                     = var.storage_account_name[count.index]
-  count = length(var.storage_account_name)
-  #count = 2 but you need a unique name for the storage account. 
-  resource_group_name      = azurerm_resource_group.example.name
-  location                 = azurerm_resource_group.example.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
-
-  tags = {
-    environment = var.environment
+resource "azurerm_network_security_group" "nsg" {
+  # conditional expression if environment is dev then name is dev-nsg else stage-nsg
+  name                = var.environment == "dev" ? "dev-nsg" : "stage-nsg"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  
+  #Here is where we need the dynamic block
+  dynamic "security_rule" {
+    for_each = local.nsg_rules
+    content {
+      name                       = security_rule.key
+      priority                   = security_rule.value.priority
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = security_rule.value.destination_port_range
+      source_address_prefix      = "*"
+      destination_address_prefix = "*"
+      description                = security_rule.value.description
+      
+    }
   }
-}
-
-
-resource "azurerm_storage_account" "for_each_example" {
-  name                     = each.value
-  for_each = var.storage_account_name2
-  resource_group_name      = azurerm_resource_group.example.name
-  location                 = azurerm_resource_group.example.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
-
-  tags = {
-    environment = var.environment
-  }
+  
 }

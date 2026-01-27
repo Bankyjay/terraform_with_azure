@@ -1,17 +1,15 @@
-output "rgname" {
-  value = azurerm_resource_group.example[*].name
-}
-
-#for loop in output variables
-output "storage_name" {
-  value = [for i in azurerm_storage_account.example: i.name]
+output "env" {
+  description = "The deployment environment"
+  value       = var.environment
   
 }
 
-output "azurerm_resource_group_id" {
-  value = azurerm_resource_group.example[*].id  
+output "security_rule" {
+  description = "The NSG security rules"
+  value       = var.allowed_vm_sizes[*]
 }
 
-output "storage_account_name2" {
-  value = [for i in azurerm_storage_account.for_each_example: i.name]
+#for loop to iterate through the map and get the description of each rule
+output "demo" {
+  value = [ for count in local.nsg_rules : count.description]
 }
