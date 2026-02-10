@@ -1,94 +1,32 @@
-#string data type variable
-variable "environment" {
-  description = "The environment for the resources"
+variable "project_name" {
+  description = "The name of the project."
   type        = string
-  default = "prod"
+  default     = "ALPHA project INC"
 }
 
-#number data type variable
-variable "storage_disk" {
-  description = "The size of the storage disk in GB"
-  type        = number
-  default     = 80
+variable "default_tags" {
+  type = map
+   default= {
+    company = "CloudOps"
+    managed_by = "Terraform"
+  }
   
 }
 
-variable "location" {
-  description = "The location for resource deployment"
-  type        = string
-  default     = "North Europe"
-  
-}
-
-#boolean data type variable
-variable "is_delete" {
-  type = bool
-  description = "delete os disk when delete vm"
-  default = true
-}
-
-#list data type variable
-variable "allowed_locations" {
-  description = "The list of allowed locations for resource deployment"
-  type        = list(string)
-  default     = ["West Europe", "East US", "North Europe"]
-  
-}
-
-#map data type variable
-variable "resource_tags" {
-  description = "A map of tags to assign to the resources"
-  type        = map(string)
+variable "environment_tags" {
+  type = map(string)
   default = {
-    environment = "staging"
-    managed_by = "terraform"
-    team = "devops"
+    environment = "production"
+    cost_center = "CC-123"
   }
 }
 
-#tuple data type variable comprises of (strings number and boolean)
-variable "network_config" {
-  type = tuple([string, string, number])
-  description = "Network configuration (VNET address, subnet address, subnet mask)"
-  default = [ "10.0.0.0/16", "10.0.2.0", 24 ]
-}
-
-variable "allowed_vm_sizes" {
-  description = "A list of allowed VM sizes"
-  type        = list(string)
-  default     = ["Standard_DS1_v2", "Standard_DS2_v2", "Standard_DS3_v2"]
-}
-
-#object data type variable
-variable "vm_config" {
-  type = object({
-    size = string
-    publisher = string
-    offer = string
-    sku = string
-    version = string
-
-  })
-  description = "Configuration for the virtual machine"
-  default = {
-    size = "Standard_DS2_v2"
-    publisher = "canonical"
-    offer = "0001-com-ubuntu-server-jammy"
-    sku = "22_04-lts"
-    version = "latest"
-  }
-}
-
-#count sample variable
 variable "storage_account_name" {
-  type = list(string)
-  default = ["storageacctone026", "storageacct32026"]
-  
+  type = string
+  default = "testing storageacct name this should be defaulting"
 }
 
-#for_each sample variable
-variable "storage_account_name2" {
-  type = set(string)
-  default = ["storageacctone01232026", "storageaccttwo01232026"]
-  
+variable "allowed_ports" {
+  type = string
+  default = "80,443,22"
 }

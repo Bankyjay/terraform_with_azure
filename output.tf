@@ -1,15 +1,16 @@
-output "env" {
-  description = "The deployment environment"
-  value       = var.environment
+output "rgname" {
+  value = azurerm_resource_group.rg.name
+  
+}
+output "storageaccountname" {
+  value = azurerm_storage_account.example.name
   
 }
 
-output "security_rule" {
-  description = "The NSG security rules"
-  value       = var.allowed_vm_sizes[*]
+output "nsg_rules" {
+  value = local.nsg_rules 
 }
 
-#for loop to iterate through the map and get the description of each rule
-output "demo" {
-  value = [ for count in local.nsg_rules : count.description]
+output "security_name" {
+  value = "azurerm_network_security_group.network-tf.name"
 }
