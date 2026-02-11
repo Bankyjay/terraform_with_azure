@@ -9,6 +9,23 @@ locals {
     description = "Allow inbound traffic on port ${port}"
     priority = 100 + index(local.formatted_ports, port) * 10
   }]
+  vm_size = lookup(var.vm_sizes, var.environment, lower("dev"))
+
+  user_location = ["eastus", "westus", "eastus",]
+  default_location = ["centalus"]
+  unique_location = toset((concat(local.user_location, local.default_location)))
+  
+  monthly_cost = [-50, 100, 75, 200]
+  positive_cost = [for cost in local.monthly_cost :
+  abs(cost)]
+  max_cost = max(local.positive_cost...)
+
+  current_time = timestamp()
+  resource_name = formatdate("YYYYMMDD",local.current_time)
+  tag_date = formatdate("DD-MM-YYYY",local.current_time)
+
+  config_content = jsondecode(file(config.json))
+
 }
 
 resource "azurerm_resource_group" "rg" {
