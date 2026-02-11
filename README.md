@@ -21,3 +21,20 @@ count (list [1,2,3])
 for_each (counter)
 providers
 lifecycle
+
+Branch "lookup"
+Scenerio: 
+Implement environment configuration mapping with fallback values. 
+
+input: 
+
+dev = "standard_D2s_v3"
+staging = "standard_D4s_v3"
+prod = "standard_D8s_v3'
+
+Tasks: 
+
+1. create the environment map 
+2. implement lookup with fallback
+3. create outputs for the configuration
+4. Handle invalid environment name 
