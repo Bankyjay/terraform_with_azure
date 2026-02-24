@@ -15,26 +15,4 @@ To securely save the backend.tf file. create a new resource group, storage accou
 In passing varaiables: 
 The file terraform.tfvars takes precedence over variable.tf
 
-Meta arguemnets:
-depends_on (explicit dependency Resource_B depends on Resource_A)
-count (list [1,2,3])
-for_each (counter)
-providers
-lifecycle
-
-Branch "lookup"
-Scenerio: 
-Implement environment configuration mapping with fallback values. 
-
-input: 
-
-dev = "standard_D2s_v3"
-staging = "standard_D4s_v3"
-prod = "standard_D8s_v3'
-
-Tasks: 
-
-1. create the environment map 
-2. implement lookup with fallback
-3. create outputs for the configuration
-4. Handle invalid environment name 
+Data_source references data in the cloud e.g(resource group VM, subnet e.t.c) uses it for the creation of new resource.
